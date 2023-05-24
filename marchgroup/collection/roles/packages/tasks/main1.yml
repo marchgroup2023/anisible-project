@@ -1,0 +1,14 @@
+---
+- name: Install a list of packages
+  hosts: all
+  become: true
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - telnet
+        - elinks
+        - wget
+        - unzip

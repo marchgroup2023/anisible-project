@@ -1,0 +1,9 @@
+---
+- name: Run roles
+  hosts: all
+  become: true
+
+  roles:
+    - packages
+    - cloudwatchagent
+    - datadog

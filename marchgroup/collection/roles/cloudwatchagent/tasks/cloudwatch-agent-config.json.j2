@@ -1,0 +1,63 @@
+{
+  "agent": {
+    "run_as_user": "cwagent",
+    "logfile": "/var/log/amazon/amazon-cloudwatch-agent.log"
+  },
+  "metrics": {
+    "append_dimensions": {
+      "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+      "ImageId": "${aws:ImageId}",
+      "InstanceId": "${aws:InstanceId}",
+      "InstanceType": "${aws:InstanceType}"
+    },
+    "metrics_collected": {
+      "mem": {
+        "measurement": [
+          "mem_used_percent"
+        ],
+        "metrics_collection_interval": 60,
+        "resources": [
+          "*"
+        ],
+        "ignore_gathering_error": true
+      },
+      "swap": {
+        "measurement": [
+          "swap_used_percent"
+        ],
+        "metrics_collection_interval": 60,
+        "resources": [
+          "*"
+        ],
+        "ignore_gathering_error": true
+      },
+      "disk": {
+        "measurement": [
+          "used_percent"
+        ],
+        "metrics_collection_interval": 60,
+        "resources": [
+          "*"
+        ],
+        "ignore_gathering_error": true
+      }
+    }
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/messages",
+            "log_group_name": "my-log-group",
+            "log_stream_name": "my-log-stream",
+            "timezone": "LOCAL",
+            "timestamp_format": "%b %d %H:%M:%S"
+          }
+        ]
+      }
+    },
+    "log_stream_name": "my-log-stream",
+    "force_flush_interval": 15
+  }
+}
